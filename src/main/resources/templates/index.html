@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            background-color: #f0e4d7;
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #555;
+        }
+        form {
+            margin: 0 auto;
+            width: 300px;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Currency Converter</h1>
+<form th:action="@{/convert}" method="get">
+    <label for="base">Base Currency:</label>
+    <select name="base" id="base" required>
+        <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+    </select>
+    <label for="target">Target Currency:</label>
+    <select name="target" id="target" required>
+        <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+    </select>
+    <label for="amount">Amount:</label>
+    <input type="number" name="amount" id="amount" required />
+    <button type="submit">Convert</button>
+</form>
+<div class="result" th:if="${result != null}">
+    <p>Converted Amount: <span th:text="${result}"></span></p>
+</div>
+</body>
+</html>
